@@ -4,7 +4,7 @@ import tensorflow as tf
 
 # Load GloVe embeddings
 embedding_index = {}
-with open('C:/Code/Emoji Predictor Neural Network/glove.6B.50d.txt', encoding='utf-8') as f:
+with open('glove.6B.50d.txt', encoding='utf-8') as f:
     for line in f:
         values = line.split()
         word = values[0]
@@ -12,11 +12,11 @@ with open('C:/Code/Emoji Predictor Neural Network/glove.6B.50d.txt', encoding='u
         embedding_index[word] = vector
 
 # Load emoji mapping
-emoji_map_df = pd.read_csv('C:/Code/Emoji Predictor Neural Network/final_csv_files/mapping.csv')
+emoji_map_df = pd.read_csv('final_csv_files/mapping.csv')
 label_to_emoji = dict(zip(emoji_map_df['number'], emoji_map_df['emoticons']))
 
 # Load trained model
-model = tf.keras.models.load_model('C:/Code/Emoji Predictor Neural Network/emoji_predictor_model.h5')
+model = tf.keras.models.load_model('emoji_predictor_model.h5')
 
 # Text preprocessing + embedding
 def preprocess_input(text, MAX_LEN=20):

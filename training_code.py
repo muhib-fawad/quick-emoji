@@ -8,7 +8,7 @@ def get_embedding_output(x):
         my_example = x[ix].split()
              
         for ij in range(len(my_example)): 
-            if (embedding_index.get(my_example[ij].lower()) is not None) and (ij<maxLen):
+            if (embedding_index.get(my_example[ij].lower()) is not None) and (ij<MAX_LEN):
                 embedding_output[ix][ij] = embedding_index[my_example[ij].lower()]
             
     return embedding_output
@@ -36,11 +36,11 @@ from tensorflow.keras.utils import to_categorical
 from imblearn.over_sampling import SMOTE
 
 # Define constants 
-MAX_LEN = 20 
+MAX_LEN = 20
 EMBEDDING_DIM = 50
 
 # Load the new processed dataset
-df = pd.read_csv('C:/Code/archive/Train.csv')
+df = pd.read_csv('../archive/Train.csv')
 
 # Create training and testing sets
 x = df['TEXT']
@@ -49,7 +49,7 @@ y = df['Label']
 
 # Load the GloVe embeddings
 embedding_index = {}
-with open('C:/Code/Emoji Predictor Neural Network/glove.6B.50d.txt', encoding='utf-8') as g:
+with open('glove.6B.50d.txt', encoding='utf-8') as g:
     for line in g:
         values = line.split()
         embedding_index[values[0]] = np.asarray(values[1:], dtype=float)
@@ -113,4 +113,4 @@ loss, accuracy = model.evaluate(x_test, y_test)
 print(f'Test Accuracy: {accuracy}')
 
 # Save the model
-model.save('C:/Code/Emoji Predictor Neural Network/emoji_predictor_model.h5')
+model.save('emoji_predictor_model.h5')
